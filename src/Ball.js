@@ -15,8 +15,8 @@ class Ball {
     }
 
     this.speed = {
-      x: 2,
-      y: -4
+      x: 4,
+      y: -8
     }
 
     this.size = 16
@@ -40,8 +40,16 @@ class Ball {
       this.speed.y = -this.speed.y
     }
 
+    // Death
+    if (this.position.y + this.size > this.gameHeight) {
+      this.game.gamestate = 3
+    }
+
     if (detectCollision(this, this.game.paddle)) {
       this.speed.y = -this.speed.y
+      // ボールの位置をバドルの上に載せるようにする
+      // 理由がよくわからにんだけど、やらないとバドルにボールがあたったときの挙動があやしい
+      this.position.y = this.game.paddle.position.y - this.size;
     }
 
   }
